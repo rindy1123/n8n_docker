@@ -1,0 +1,26 @@
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    environment:
+      - GENERIC_TIMEZONE=Asia/Tokyo
+      - TZ=Asia/Tokyo
+      - N8N_RUNNERS_ENABLED=true
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    restart: unless-stopped
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11433:11434"
+    volumes:
+      - ollama:/root/.ollama
+
+volumes:
+  n8n_data:
+    name: n8n_data
+  ollama:
+    name: ollama
